@@ -12,9 +12,9 @@ chdir(dirname(__DIR__));
 require_once "vendor/autoload.php";
 
 try {
-    $kernel = (new Kernel())->boot();
+    $kernel = Kernel::boot();
 
-    $routerContainer = $kernel->getContainer()->get(Aura\Router\RouterContainer::class);
+    $routerContainer = $kernel->get(Aura\Router\RouterContainer::class);
 
     $routerContainer->getMap()->get('home', '/', ['service' => App\Http\Controller\IndexController::class, 'action' => 'index']);
     $routerContainer->getMap()->post('register', '/register', ['service' => App\Http\Controller\Auth\Register::class, 'action' => 'store']);

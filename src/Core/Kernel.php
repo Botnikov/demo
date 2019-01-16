@@ -24,6 +24,17 @@ class Kernel
 
     private $container;
 
+    private static $object;
+
+    private function __construct()
+    {
+    }
+
+    private function __clone()
+    {
+    }
+
+
     /**
      * @return ServiceManager
      */
@@ -32,18 +43,26 @@ class Kernel
         return $this->container;
     }
 
-
-    public function boot(): self
+    public function get($name)
     {
-        if(!$this->container){
-            $this->bootContainer();
-            AnnotationRegistry::registerLoader('class_exists');
+        return $this->getContainer()->get($name);
+    }
 
-            $this->loadServices('App\\Http\\Controller');
-            $this->loadServices('App\\Http\\Controller\\Auth');
+    public static function boot(): self
+    {
+        if (!self::$object) {
+            self::$object = new self();
         }
 
-        return $this;
+        if (!self::$object->container) {
+            self::$object->bootContainer();
+            AnnotationRegistry::registerLoader('class_exists');
+
+            self::$object->loadServices('App\\Http\\Controller');
+            self::$object->loadServices('App\\Http\\Controller\\Auth');
+        }
+
+        return self::$object;
     }
 
     /**
@@ -53,9 +72,9 @@ class Kernel
     {
         $response = null;
 
-        $request = $this->getContainer()->get(ServerRequestInterface::class);
+        $request = $this->get(ServerRequestInterface::class);
 
-        $routerContainer = $this->getContainer()->get(\Aura\Router\RouterContainer::class);
+        $routerContainer = $this->get(\Aura\Router\RouterContainer::class);
 
         /**@var \Aura\Router\Matcher $matcher */
         $matcher = $routerContainer->getMatcher();
@@ -71,7 +90,7 @@ class Kernel
             $handler = $route->handler;
 
             if (is_array($handler) && $this->getContainer()->has($handler['service'])) {
-                $service = $this->getContainer()->get($handler['service']);
+                $service = $this->get($handler['service']);
                 if (array_key_exists('action', $handler) && method_exists($service, $handler['action'])) {
                     $response = $service->{$handler['action']}();
                 }
@@ -126,8 +145,6 @@ class Kernel
     private function bootContainer(): self
     {
         $this->container = new ServiceManager($this->loadConfigs() ?? []);
-        $this->container->setService(Kernel::class, $this);
-
         return $this;
     }
 

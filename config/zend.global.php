@@ -19,5 +19,9 @@ return [
             return new Zend\Db\Adapter\Adapter($container->get('config')['pdo']);
         },
 
+    ],
+    'aliases' => [
+        'db' => Zend\Db\Adapter\Adapter::class,
+        'request' => ServerRequestInterface::class
     ]
 ];

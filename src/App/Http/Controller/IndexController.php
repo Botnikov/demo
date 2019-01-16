@@ -22,7 +22,7 @@ class IndexController extends AbstractController
     public function index()
     {
 
-        dd($this->request);
+        dd(self::get('request'));
 
         $user = new User();
         $user->setUserName('Aleksandr');
