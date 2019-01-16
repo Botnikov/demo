@@ -13,12 +13,12 @@ use Aura\Auth\Status;
 
 class PdoAdapter extends \Aura\Auth\Adapter\PdoAdapter
 {
-    public function updateToken(string $currentPid, string $newPid)
+    public function updateToken(string $currentUid, string $newUid)
     {
         try {
-            $statment = $this->pdo->prepare("UPDATE `users` SET uid=:newPid WHERE  uid=:curreentPid");
-            $statment->bindParam(':newPid', md5($newPid));
-            $statment->bindParam(':curreentPid', md5($currentPid));
+            $statment = $this->pdo->prepare("UPDATE `users` SET uid=:newUid WHERE  uid=:curreentUid");
+            $statment->bindParam(':newUid', md5($newUid));
+            $statment->bindParam(':curreentUid', md5($currentUid));
             $result = $statment->execute();
             if ($result) {
                 return true;
