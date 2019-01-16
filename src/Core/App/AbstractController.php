@@ -41,4 +41,34 @@ abstract class AbstractController
         $this->auth = $auth;
         $this->kernel = $kernel;
     }
+
+
+    /**
+     * @return Adapter
+     */
+    public function getDb(): Adapter
+    {
+
+        return $this->db;
+    }
+
+
+    /**
+     * @return AuthFactory
+     */
+    public function getAuth(): AuthFactory
+    {
+        return $this->auth;
+    }
+
+
+    /**
+     * @return Kernel
+     */
+    public function getKernel(): Kernel
+    {
+        return $this->kernel;
+    }
+
+
 }

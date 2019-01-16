@@ -35,11 +35,13 @@ class Kernel
 
     public function boot(): self
     {
+        if(!$this->container){
+            $this->bootContainer();
+            AnnotationRegistry::registerLoader('class_exists');
 
-        $this->bootContainer();
-        AnnotationRegistry::registerLoader('class_exists');
-        $this->loadServices('App\\Http\\Controller');
-        $this->loadServices('App\\Http\\Controller\\Auth');
+            $this->loadServices('App\\Http\\Controller');
+            $this->loadServices('App\\Http\\Controller\\Auth');
+        }
 
         return $this;
     }
