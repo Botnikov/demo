@@ -11,6 +11,9 @@ namespace Services\Http\Auth;
 
 use PDO;
 use \Aura\Auth\Verifier\PasswordVerifier;
+use Services\Http\Auth\Adapter\AdapterInterface;
+use Services\Http\Auth\Adapter\PdoAdapter;
+use Services\Http\Auth\Service\LoginService;
 
 class AuthFactory extends \Aura\Auth\AuthFactory
 {

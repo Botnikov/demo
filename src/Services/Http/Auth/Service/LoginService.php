@@ -6,7 +6,7 @@
  * Time: 23:46
  */
 
-namespace Services\Http\Auth;
+namespace Services\Http\Auth\Service;
 
 
 

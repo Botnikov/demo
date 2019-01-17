@@ -6,7 +6,7 @@
  * Time: 0:24
  */
 
-namespace Services\Http\Auth;
+namespace Services\Http\Auth\Adapter;
 
 
 interface AdapterInterface extends \Aura\Auth\Adapter\AdapterInterface

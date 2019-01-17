@@ -6,7 +6,7 @@
  * Time: 23:51
  */
 
-namespace Services\Http\Auth;
+namespace Services\Http\Auth\Adapter;
 
 
 use Aura\Auth\Status;
