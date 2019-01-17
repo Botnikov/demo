@@ -9,7 +9,7 @@
 namespace Core\Template;
 
 
-interface TemplateRenderIterface
+interface TemplateRenderInterface
 {
     /**
      *

@@ -80,7 +80,8 @@ class Kernel
         $matcher = $routerContainer->getMatcher();
 
         $route = $matcher->match($request);
-
+        $generator = $routerContainer->getGenerator();
+        dd($generator->generate('blog.read', ['id' => 42]));
 
         if ($route) {
             foreach ($route->attributes as $key => $val) {
